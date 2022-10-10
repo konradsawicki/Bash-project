@@ -35,9 +35,8 @@ In the database 180+ countries are available. Results include:
 
 - Gui thanks to Zenity
 - Menu
-- Ability to write down a wanted country,
-- Population statistics of a country.
-
+- Ability to write down a wanted country
+- Population statistics of a country
 
 ## Usage
 
