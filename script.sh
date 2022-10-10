@@ -1,6 +1,6 @@
 #! /bin/bash
 
-function menu()
+menu()
 {
     until [[ "$MENU" == "Exit" || "$MENU" == "" ]]; do
         MENU=`zenity --list --column Menu "${MENU_LIST[@]}" --height 250 --width 400`
@@ -11,22 +11,15 @@ function menu()
     done
 }
 
-function get_country_population()
+get_country_info()
 {
-    
-}
+    COUNTRY_POPULATION=`grep cp1\" $COUNTRY_COUNTRY_FILE | cut -d '>' -f 4`
+    COUNTRY_POPULATION=${COUNTRY_POPULATION%</div}
 
-function get_country_births()
-{
-
-}
-
-function get_country_deaths()
-{
 
 }
 
-function choose_country()
+choose_country()
 {
     if [[ ! -f "$COUNTRY_LIST_FILE" ]]; then
         zenity --warning --width 20 --text "Error! Try again!"
@@ -40,13 +33,11 @@ function choose_country()
         check_country_on_the_list
     done
 
-    update_country_data
-    get_country_population
-    get_country_births
-    get_country_deaths
+    update_country_info
+    get_country_info
 }
 
-function change_coutry_to_fit_pattern() 
+change_coutry_to_fit_pattern() 
 {
     TEMP_ARRAY=()
     COUNTRY=`echo $COUNTRY | tr -s ' '`
@@ -62,15 +53,15 @@ function change_coutry_to_fit_pattern()
     COUNTRY=`echo $COUNTRY | tr ' ' '_'`
 }
 
-function check_country_on_the_list()
+check_country_on_the_list()
 {
     grep $COUNTRY "$COUNTRY_LIST_FILE"
     [[ $? -eq 0 ]] && FOUND_COUNTRY="TRUE" || FOUND_COUNTRY="FALSE"
 }
 
-function update_country_data()
+update_country_info()
 {
-    wget -O "$COUNTRY_POPULATION_FILE" "$MAIN_URL"/"$COUNTRY"
+    wget -O "$COUNTRY_INFO_FILE" "$MAIN_URL"/"$COUNTRY"
 }
 
 get_country_list()
@@ -78,9 +69,15 @@ get_country_list()
     wget -O "$COUNTRY_LIST_FILE" "$MAIN_URL"
 }
 
+delete_files()
+{
+    rm /tmp/country_info.$$
+    rm /tmp/country_list.$$
+}
+
 MAIN_URL="https:://countrymeters.info/en"
 
-COUNTRY_POPULATION_FILE="/tmp/country_population.$$"
+COUNTRY_INFO_FILE="/tmp/country_info.$$"
 COUNTRY_LIST_FILE="/tmp/country_list.$$"
 
 FOUND_COUNTRY="FALSE"
@@ -90,7 +87,7 @@ COUNTRY_BIRTHS=0
 COUNTRY_DEATHS=0
 
 MENU_LIST=("Choose specific country population statistics" "Exit")
-MENU="."
+MENU=","
 
 get_country_list
 menu
