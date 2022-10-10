@@ -4,7 +4,7 @@
  - [Visuals](#visuals)
  - [Description](#description)
 	 - [General](#general)
-	 - [Programming languages and libriaries](#programming-languages-and-libraries)
+	 - [Programming languages](#programming-languages)
 	 - [Main features](#main-features)
  - [Usage](#usage)
 
@@ -19,12 +19,12 @@
 
 ### General
 
-This bash script allows the user to check live population data for a specific country. The user has to write the country down and then the results show up.
+This bash script allows the user to check live population data for a specific country. Zenity deliveres the GUI. The user has to write the country down and then the results show up.
 In the database 180+ countries are available. Results include:
  - current population of a country, 
  - daily births,
  - daily deaths,
- - population growth year to date.
+ - population growth year to date. <br>
 
 ### Programming languages
 
@@ -32,6 +32,7 @@ In the database 180+ countries are available. Results include:
 
 ### Main features
 
+- Gui thanks to Zenity
 - Menu
 - Ability to write down a wanted country,
 - Population statistics of a country.
